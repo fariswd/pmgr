@@ -9,9 +9,23 @@ class IndexScreen extends StatefulWidget {
   _IndexScreenState createState() => _IndexScreenState();
 }
 
-class _IndexScreenState extends State<IndexScreen> {
+class _IndexScreenState extends State<IndexScreen>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
   int _current = 0;
   var data = [0.0, 5.0, 2.0, 4.0, 3.0, 8.0, 10.0];
+
+  @override
+  void initState() {
+    tabController = TabController(vsync: this, length: 4);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   Widget headerContent(title, content) {
     return Container(
@@ -331,7 +345,7 @@ class _IndexScreenState extends State<IndexScreen> {
   Widget summary() {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -458,7 +472,7 @@ class _IndexScreenState extends State<IndexScreen> {
       body: ListView(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(bottom: 30),
+            // padding: EdgeInsets.only(bottom: 30),
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -510,6 +524,56 @@ class _IndexScreenState extends State<IndexScreen> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(width: 2, color: Colors.grey[200])
+          )
+        ),
+        height: 68,
+        child: TabBar(
+          labelPadding: EdgeInsets.only(top: 4),
+          indicatorColor: Colors.transparent,
+          unselectedLabelColor: Color(0xFFBEC6D0),
+          labelColor: Color(0xFF1FB499),
+          // unselectedLabelStyle: TextStyle(color: Color(0xFFBEC6D0)),
+          controller: tabController,
+          tabs: <Widget>[
+            Tab(
+              icon: Icon(
+                Icons.home,
+                size: 32,
+              ),
+              child: Container(
+                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                child: Text('Home'),
+              ),
+            ),
+            Tab(
+              icon: Icon(Icons.query_builder),
+              child: Container(
+                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                child: Text('Task'),
+              )
+            ),
+            Tab(
+              icon: Icon(Icons.chat_bubble_outline),
+              child: Container(
+                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                child: Text('Chat'),
+              )
+            ),
+            Tab(
+              icon: Icon(Icons.apps),
+              child: Container(
+                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                child: Text('Menu'),
+              )
+            )
+          ],
+        ),
       ),
     );
   }
