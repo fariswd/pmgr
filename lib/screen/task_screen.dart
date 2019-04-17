@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../component/header_content.dart';
 import '../component/chart_work_hours.dart';
