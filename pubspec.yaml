@@ -48,6 +48,7 @@ flutter:
    - assets/image/capung.jpg
    - assets/image/kupu.jpg
    - assets/image/kumbang.jpg
+   - assets/image/login_image.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

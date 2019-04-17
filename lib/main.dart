@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './screen/index_screen.dart';
+
+import './screen/login_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Projext Manager Flutter Challenge',
       debugShowCheckedModeBanner: false,
-      home: IndexScreen(),
+      home: LoginScreen(),
     );
   }
 }
