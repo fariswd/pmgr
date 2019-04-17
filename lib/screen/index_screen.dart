@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import './component/clipper.dart';
+import '../component/clipper.dart';
+import '../component/header_content.dart';
+import '../screen/task_screen.dart';
 
 class IndexScreen extends StatefulWidget {
   @override
@@ -25,30 +27,6 @@ class _IndexScreenState extends State<IndexScreen>
   void dispose() {
     tabController.dispose();
     super.dispose();
-  }
-
-  Widget headerContent(title, content) {
-    return Container(
-      width: 130,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.grey[500],
-              fontSize: 12,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 5),
-          ),
-          content(),
-        ],
-      ),
-    );
   }
 
   Widget headerGreeting() {
@@ -104,184 +82,195 @@ class _IndexScreenState extends State<IndexScreen>
   Widget headerBox() {
     return ClipPath(
       clipper: Clipper(),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(43.5),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => TaskScreen()));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(43.5),
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFFFDFDFD),
+                Color(0xFFEBF6F7),
+              ],
+            ),
           ),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFDFDFD),
-              Color(0xFFEBF6F7),
+          height: 260,
+          width: 330,
+          padding: EdgeInsets.fromLTRB(35, 35, 20, 35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/image/capung.jpg'),
+                    radius: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Jumbo Dashboard',
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 3),
+                      ),
+                      Text(
+                        'First Privacy Assistance Platform',
+                        style: TextStyle(color: Colors.grey[800], fontSize: 13),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
+              Divider(height: 2),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  headerContent(
+                    'TEAMS',
+                    () {
+                      return Row(
+                        children: <Widget>[
+                          CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/image/kupu.jpg'),
+                            radius: 14,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 3),
+                          ),
+                          CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/image/kumbang.jpg'),
+                            radius: 14,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 3),
+                          ),
+                          CircleAvatar(
+                            radius: 14,
+                            backgroundColor: Colors.grey[300],
+                            child: Text(
+                              '3+',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    130.0,
+                  ),
+                  headerContent(
+                    'YOUR TASK',
+                    () {
+                      return Row(
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 12,
+                            backgroundColor: Colors.green,
+                            child: Icon(Icons.content_paste, size: 15),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 7),
+                          ),
+                          Text(
+                            '666',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 3),
+                          ),
+                          Text(
+                            'Tasks',
+                            style: TextStyle(color: Colors.grey[500]),
+                          ),
+                        ],
+                      );
+                    },
+                    130.0,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  headerContent(
+                    'GRAPHIC',
+                    () {
+                      return Container(
+                        height: 25,
+                        width: 105,
+                        child: Sparkline(
+                          data: data,
+                          lineWidth: 5.0,
+                          lineGradient: new LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Color(0xFFE5788C), Color(0xFFFFC195)],
+                          ),
+                          pointsMode: PointsMode.last,
+                          pointSize: 10.0,
+                          pointColor: Colors.amber,
+                        ),
+                      );
+                    },
+                    130.0,
+                  ),
+                  headerContent(
+                    'EST. DATE',
+                    () {
+                      return Row(
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 12,
+                            backgroundColor: Colors.red[300],
+                            child: Icon(
+                              Icons.folder_open,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 7),
+                          ),
+                          Text(
+                            'Mar 30, 2019',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      );
+                    },
+                    130.0,
+                  ),
+                ],
+              ),
             ],
           ),
-        ),
-        height: 260,
-        width: 330,
-        padding: EdgeInsets.fromLTRB(35, 35, 20, 35),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/image/capung.jpg'),
-                  radius: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Jumbo Dashboard',
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 3),
-                    ),
-                    Text(
-                      'First Privacy Assistance Platform',
-                      style: TextStyle(color: Colors.grey[800], fontSize: 13),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
-            Divider(height: 1),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                headerContent(
-                  'TEAMS',
-                  () {
-                    return Row(
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage: AssetImage('assets/image/kupu.jpg'),
-                          radius: 14,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3),
-                        ),
-                        CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/image/kumbang.jpg'),
-                          radius: 14,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3),
-                        ),
-                        CircleAvatar(
-                          radius: 14,
-                          backgroundColor: Colors.grey[300],
-                          child: Text(
-                            '3+',
-                            style: TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-                headerContent(
-                  'YOUR TASK',
-                  () {
-                    return Row(
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 12,
-                          backgroundColor: Colors.green,
-                          child: Icon(Icons.content_paste, size: 15),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 7),
-                        ),
-                        Text(
-                          '666',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3),
-                        ),
-                        Text(
-                          'Tasks',
-                          style: TextStyle(color: Colors.grey[500]),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                headerContent(
-                  'GRAPHIC',
-                  () {
-                    return Container(
-                      height: 25,
-                      width: 105,
-                      child: Sparkline(
-                        data: data,
-                        lineWidth: 5.0,
-                        lineGradient: new LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [Color(0xFFE5788C), Color(0xFFFFC195)],
-                        ),
-                        pointsMode: PointsMode.last,
-                        pointSize: 10.0,
-                        pointColor: Colors.amber,
-                      ),
-                    );
-                  },
-                ),
-                headerContent(
-                  'EST. DATE',
-                  () {
-                    return Row(
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 12,
-                          backgroundColor: Colors.red[300],
-                          child: Icon(
-                            Icons.folder_open,
-                            color: Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 7),
-                        ),
-                        Text(
-                          'Mar 30, 2019',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );
@@ -527,11 +516,8 @@ class _IndexScreenState extends State<IndexScreen>
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            top: BorderSide(width: 2, color: Colors.grey[200])
-          )
-        ),
+            color: Colors.white,
+            border: Border(top: BorderSide(width: 2, color: Colors.grey[200]))),
         height: 68,
         child: TabBar(
           labelPadding: EdgeInsets.only(top: 4),
@@ -552,26 +538,23 @@ class _IndexScreenState extends State<IndexScreen>
               ),
             ),
             Tab(
-              icon: Icon(Icons.query_builder),
-              child: Container(
-                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
-                child: Text('Task'),
-              )
-            ),
+                icon: Icon(Icons.query_builder),
+                child: Container(
+                  transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                  child: Text('Task'),
+                )),
             Tab(
-              icon: Icon(Icons.chat_bubble_outline),
-              child: Container(
-                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
-                child: Text('Chat'),
-              )
-            ),
+                icon: Icon(Icons.chat_bubble_outline),
+                child: Container(
+                  transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                  child: Text('Chat'),
+                )),
             Tab(
-              icon: Icon(Icons.apps),
-              child: Container(
-                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
-                child: Text('Menu'),
-              )
-            )
+                icon: Icon(Icons.apps),
+                child: Container(
+                  transform: Matrix4.translationValues(0.0, -5.0, 0.0),
+                  child: Text('Menu'),
+                ))
           ],
         ),
       ),
